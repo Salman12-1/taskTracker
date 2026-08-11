@@ -18,41 +18,41 @@ Commands
 
 Add a task:
 
-py task_cli.py add "Buy groceries"
+   py task_cli.py add "Buy groceries"
 
 
 Update a task's description:
 
-py task_cli.py update 0 "Buy groceries and cook dinner"
+   py task_cli.py update 0 "Buy groceries and cook dinner"
 
 
 Delete a task:
 
-py task_cli.py delete 0
+   py task_cli.py delete 0
 
 
 Mark a task as in progress:
 
-py task_cli.py mark-in-progress 0
+   py task_cli.py mark-in-progress 0
 
 
 Mark a task as done:
 
-py task_cli.py mark-done 0
+   py task_cli.py mark-done 0
 
 
 List all tasks:
 
-py task_cli.py list
+   py task_cli.py list
 
 
 List tasks by status:
 
-py task_cli.py list done
+   py task_cli.py list done
 
-py task_cli.py list todo
+   py task_cli.py list todo
 
-py task_cli.py list in-progress
+   py task_cli.py list in-progress
 
 
 
