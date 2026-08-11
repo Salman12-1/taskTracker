@@ -29,7 +29,7 @@ def add_task(description):
     ID = max((task["id"] for task in current_tasks), default = -1) + 1
 
     #isoformat() used for datetime objects
-    new_task = {"id":ID, "description":description, "status":"todo", "createdAt": datetime.datetime.today().isoformat(), "updatedAt": datetime.datetime.today().isoformat()}
+    new_task = {"id":ID, "description":description, "status":"todo", "createdAt": datetime.datetime.today().strftime("%Y-%m-%d %H:%M:%S"), "updatedAt": datetime.datetime.today().strftime("%Y-%m-%d %H:%M:%S")}
     current_tasks.append(new_task)
     write_file(current_tasks)
     print("Task added successfully (ID: %d)\n"%ID)
@@ -53,7 +53,7 @@ def update_task(id,description):
     for task in current_tasks:
         if task["id"] == id:
             task["description"] = description
-            task["updatedAt"] = datetime.datetime.today().isoformat()
+            task["updatedAt"] = datetime.datetime.today().strftime("%Y-%m-%d %H:%M:%S")
             write_file(current_tasks)
             return
     print("Task with ID: %d doesn't exist!"%id)
@@ -76,7 +76,7 @@ def mark_inProgress(id):
     for task in current_tasks:
         if task["id"] == id:
             task["status"] = "in-progress"
-            task["updatedAt"] = datetime.datetime.today().isoformat()
+            task["updatedAt"] = datetime.datetime.today().strftime("%Y-%m-%d %H:%M:%S")
             write_file(current_tasks)
             return
         
@@ -88,7 +88,7 @@ def mark_done(id):
     for task in current_tasks:
         if task["id"] == id:
             task["status"] = "done"
-            task["updatedAt"] = datetime.datetime.today().isoformat()
+            task["updatedAt"] = datetime.datetime.today().strftime("%Y-%m-%d %H:%M:%S")
             write_file(current_tasks)
             return
             
