@@ -32,10 +32,12 @@ def add_task(description):
     write_file(current_tasks)
     print("Task added successfully (ID: %d)\n"%ID)
     
-def list_task():
+def list_task(status=""):
     current_tasks = read_file()
 
     for task in current_tasks:
+        if status and task["status"] != status:
+            continue
         print(f"""ID: {task["id"]}
 Description: {task["description"]}
 Status: {task["status"]}
@@ -65,6 +67,33 @@ def delete_task(id):
             return
     print("Task with ID: %d doesn't exist!"%id)
 
+
+def mark_inProgress(id):
+    current_tasks = read_file()
+
+    for task in current_tasks:
+        if task["id"] == id:
+            task["status"] = "in-progress"
+            task["updatedAt"] = datetime.datetime.today().isoformat()
+            write_file(current_tasks)
+            return
+        
+    print("Task with ID: %d doesn't exists!"%id)
+
+def mark_done(id):
+    current_tasks = read_file()
+    
+    for task in current_tasks:
+        if task["id"] == id:
+            task["status"] = "done"
+            task["updatedAt"] = datetime.datetime.today().isoformat()
+            write_file(current_tasks)
+            return
+            
+    print("Task with ID: %d doesn't exists!"%id)
+
+
+
 if __name__ == '__main__':
     if len(sys.argv) < 2:
         print("Usage: task_cli.py <command> [arguments]")
@@ -76,20 +105,56 @@ if __name__ == '__main__':
         if len(sys.argv) < 3:
             print("Error: 'add' requires a description. Usage: add \"description\"")
         else:
-            add_task(sys.argv[2])
+            #incase the user didn't use "" when adding the description.
+            description = " ".join(sys.argv[2:])
+            add_task(description)
 
     elif command == "list":
-        list_task()
+        if len(sys.argv) == 2:
+            list_task()
+
+        elif len(sys.argv) == 3:
+            list_task(sys.argv[2])
+
+        else: 
+            print("Error: too many arguments!")
+
 
     elif command == "update":
         if len(sys.argv) < 4:
             print("Error: 'update' requires an ID and a description. Usage: update <ID> \"description\"")
         else:
-            update_task(int(sys.argv[2]), sys.argv[3])
+            #incase the user didn't use "" when adding the description.
+            description = " ".join(sys.argv[3:])
+            update_task(int(sys.argv[2]), description)
 
     elif command == "delete":
         if len(sys.argv) < 3:
-            print("Error: 'delete' requires an ID. Usage: delete <id>")
+            print("Error: 'delete' requires an ID. Usage: delete <ID>")
+
+        elif len(sys.argv) > 3:
+            print("Error: too many arguments!")
+
         else:
             delete_task(int(sys.argv[2]))
+
+    elif command == "mark-in-progress":
+        if len(sys.argv) < 3:
+            print("Error: 'mark-in-progress requires an ID. Usage: mark-in-progress <ID>")
+
+        elif len(sys.argv) > 3:
+            print("Error: too many arguments!")
+
+        else:
+            mark_inProgress(int(sys.argv[2]))
+
+    elif command == "mark-done":
+        if len(sys.argv) < 3:
+                    print("Error: 'mark-done requires an ID. Usage: mark-done <ID>")
+
+        elif len(sys.argv) > 3:
+            print("Error: too many arguments!")
+
+        else:
+            mark_done(int(sys.argv[2]))
 
