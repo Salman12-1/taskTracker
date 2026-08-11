@@ -28,7 +28,7 @@ def add_task(description):
     #to find the correct id value, handles case of task deleted, and empty list.
     ID = max((task["id"] for task in current_tasks), default = -1) + 1
 
-    #isoformat() used for datetime objects
+    #strftime() used for datetime objects
     new_task = {"id":ID, "description":description, "status":"todo", "createdAt": datetime.datetime.today().strftime("%Y-%m-%d %H:%M:%S"), "updatedAt": datetime.datetime.today().strftime("%Y-%m-%d %H:%M:%S")}
     current_tasks.append(new_task)
     write_file(current_tasks)
