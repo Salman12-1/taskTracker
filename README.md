@@ -1,6 +1,7 @@
 # **Task Tracker CLI**
 
 A simple command-line application to track and manage your tasks. Tasks are stored locally in a `tasks.json` file, so your data persists between runs.
+This project is a solution to the [Task Tracker](https://roadmap.sh/projects/task-tracker) challenge from [roadmap.sh](https://roadmap.sh).
 
 ## Getting Started
 
