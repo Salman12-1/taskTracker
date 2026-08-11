@@ -5,36 +5,46 @@ Getting Started:
 1. Clone this repository or download task_cli.py.
 2. Open a terminal in the project folder.
 3. Run commands using the format below.
+   
 
 py task_cli.py (command) [arguments]
 
 A tasks.json file will be created automatically in the same folder the first time you add a task.
 
 
+
 Commands
+
+
 Add a task:
 
 py task_cli.py add "Buy groceries"
+
 
 Update a task's description:
 
 py task_cli.py update 0 "Buy groceries and cook dinner"
 
+
 Delete a task:
 
 py task_cli.py delete 0
+
 
 Mark a task as in progress:
 
 py task_cli.py mark-in-progress 0
 
+
 Mark a task as done:
 
 py task_cli.py mark-done 0
 
+
 List all tasks:
 
 py task_cli.py list
+
 
 List tasks by status:
 
