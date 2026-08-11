@@ -25,7 +25,9 @@ def write_file(data):
 def add_task(description):
     current_tasks = read_file()
 
-    ID = len(current_tasks)
+    #to find the correct id value, handles case of task deleted, and empty list.
+    ID = max((task["id"] for task in current_tasks), default = -1) + 1
+
     #isoformat() used for datetime objects
     new_task = {"id":ID, "description":description, "status":"todo", "createdAt": datetime.datetime.today().isoformat(), "updatedAt": datetime.datetime.today().isoformat()}
     current_tasks.append(new_task)
@@ -126,7 +128,10 @@ if __name__ == '__main__':
         else:
             #incase the user didn't use "" when adding the description.
             description = " ".join(sys.argv[3:])
-            update_task(int(sys.argv[2]), description)
+            try:
+                update_task(int(sys.argv[2]), description)
+            except ValueError:
+                print("Error: ID must be numeric")
 
     elif command == "delete":
         if len(sys.argv) < 3:
@@ -136,25 +141,34 @@ if __name__ == '__main__':
             print("Error: too many arguments!")
 
         else:
-            delete_task(int(sys.argv[2]))
+            try:
+                delete_task(int(sys.argv[2]))
+            except ValueError:
+                print("Error: ID must be numeric")
 
     elif command == "mark-in-progress":
         if len(sys.argv) < 3:
-            print("Error: 'mark-in-progress requires an ID. Usage: mark-in-progress <ID>")
+            print("Error: 'mark-in-progress' requires an ID. Usage: mark-in-progress <ID>")
 
         elif len(sys.argv) > 3:
             print("Error: too many arguments!")
 
         else:
-            mark_inProgress(int(sys.argv[2]))
+            try:
+                mark_inProgress(int(sys.argv[2]))
+            except ValueError:
+                print("Error: ID must be numeric")
 
     elif command == "mark-done":
         if len(sys.argv) < 3:
-                    print("Error: 'mark-done requires an ID. Usage: mark-done <ID>")
+                    print("Error: 'mark-done' requires an ID. Usage: mark-done <ID>")
 
         elif len(sys.argv) > 3:
             print("Error: too many arguments!")
 
         else:
-            mark_done(int(sys.argv[2]))
+            try:
+                mark_done(int(sys.argv[2]))
+            except ValueError:
+                print("Error: ID must be numeric")
 
